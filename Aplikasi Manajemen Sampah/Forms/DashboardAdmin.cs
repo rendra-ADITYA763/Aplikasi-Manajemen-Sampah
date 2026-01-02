@@ -31,6 +31,10 @@ namespace Aplikasi_Manajemen_Sampah.Forms
             if (btnCetak != null)
                 btnCetak.Click += btnCetakAdmin_Click;
 
+            // TAMBAHAN BARU: Setup button Chatbot
+            if (btnChatbot != null)
+                btnChatbot.Click += (s, e) => OpenChildForm(new FormChatbot(currentUser));
+
             if (btnLogout != null)
                 btnLogout.Click += BtnLogout_Click;
         }
@@ -47,9 +51,19 @@ namespace Aplikasi_Manajemen_Sampah.Forms
             if (btnUsers != null) { UIHelper.SetSidebarButton(btnUsers); SetupButtonHover(btnUsers); }
             if (btnCetak != null)
             {
+                UIHelper.SetSidebarButton(btnCetak);
                 SetupButtonHover(btnCetak);
-                btnCetak.Visible = true; 
+                btnCetak.Visible = true;
                 btnCetak.BringToFront();
+            }
+
+            // TAMBAHAN BARU: Styling button Chatbot
+            if (btnChatbot != null)
+            {
+                UIHelper.SetSidebarButton(btnChatbot);
+                SetupButtonHover(btnChatbot);
+                btnChatbot.Visible = true;
+                btnChatbot.BringToFront();
             }
 
             if (btnLogout != null)
@@ -102,7 +116,6 @@ namespace Aplikasi_Manajemen_Sampah.Forms
 
         private async void btnCetakAdmin_Click(object sender, EventArgs e)
         {
-            // Ubah kursor jadi loading
             OpenChildForm(new FormLaporan());
         }
     }

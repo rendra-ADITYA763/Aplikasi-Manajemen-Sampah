@@ -18,7 +18,7 @@
         private void InitializeComponent()
         {
             this.panelSidebar = new System.Windows.Forms.Panel();
-            // 1. INI PENTING: Membuat Tombol Cetak
+            this.btnChatbot = new System.Windows.Forms.Button(); // BARU
             this.btnCetak = new System.Windows.Forms.Button();
             this.btnUsers = new System.Windows.Forms.Button();
             this.btnPenjemputan = new System.Windows.Forms.Button();
@@ -37,9 +37,9 @@
             // panelSidebar
             // 
             this.panelSidebar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(50)))), ((int)(((byte)(40)))));
-            // 2. INI PENTING: Menempelkan Tombol ke Sidebar
-            // Urutan Add menentukan posisi tumpukan (Stack)
-            this.panelSidebar.Controls.Add(this.btnCetak); // <-- Pastikan baris ini ada!
+            // URUTAN CONTROLS - PENTING untuk posisi tombol
+            this.panelSidebar.Controls.Add(this.btnChatbot); // BARU - ditambahkan di atas btnCetak
+            this.panelSidebar.Controls.Add(this.btnCetak);
             this.panelSidebar.Controls.Add(this.btnUsers);
             this.panelSidebar.Controls.Add(this.btnPenjemputan);
             this.panelSidebar.Controls.Add(this.btnSampah);
@@ -50,15 +50,35 @@
             this.panelSidebar.Name = "panelSidebar";
             this.panelSidebar.Size = new System.Drawing.Size(240, 673);
             this.panelSidebar.TabIndex = 0;
+
             // 
-            // btnCetak (Setting Tampilan Tombol)
+            // btnChatbot (TOMBOL BARU)
+            // 
+            this.btnChatbot.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnChatbot.FlatAppearance.BorderSize = 0;
+            this.btnChatbot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnChatbot.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.btnChatbot.ForeColor = System.Drawing.Color.White;
+            this.btnChatbot.Location = new System.Drawing.Point(0, 300); // Posisi setelah btnCetak
+            this.btnChatbot.Name = "btnChatbot";
+            this.btnChatbot.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.btnChatbot.Size = new System.Drawing.Size(240, 50);
+            this.btnChatbot.TabIndex = 6;
+            this.btnChatbot.Text = "🤖 Asisten AI";
+            this.btnChatbot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnChatbot.UseVisualStyleBackColor = true;
+
+            // 
+            // btnCetak
             // 
             this.btnCetak.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnCetak.FlatAppearance.BorderSize = 0;
             this.btnCetak.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCetak.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.btnCetak.ForeColor = System.Drawing.Color.White;
             this.btnCetak.Location = new System.Drawing.Point(0, 250);
             this.btnCetak.Name = "btnCetak";
+            this.btnCetak.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.btnCetak.Size = new System.Drawing.Size(240, 50);
             this.btnCetak.TabIndex = 5;
             this.btnCetak.Text = "📄 Cetak Laporan";
@@ -70,9 +90,11 @@
             this.btnUsers.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnUsers.FlatAppearance.BorderSize = 0;
             this.btnUsers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUsers.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.btnUsers.ForeColor = System.Drawing.Color.White;
             this.btnUsers.Location = new System.Drawing.Point(0, 200);
             this.btnUsers.Name = "btnUsers";
+            this.btnUsers.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.btnUsers.Size = new System.Drawing.Size(240, 50);
             this.btnUsers.TabIndex = 4;
             this.btnUsers.Text = "👥 Kelola User";
@@ -84,9 +106,11 @@
             this.btnPenjemputan.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnPenjemputan.FlatAppearance.BorderSize = 0;
             this.btnPenjemputan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPenjemputan.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.btnPenjemputan.ForeColor = System.Drawing.Color.White;
             this.btnPenjemputan.Location = new System.Drawing.Point(0, 150);
             this.btnPenjemputan.Name = "btnPenjemputan";
+            this.btnPenjemputan.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.btnPenjemputan.Size = new System.Drawing.Size(240, 50);
             this.btnPenjemputan.TabIndex = 3;
             this.btnPenjemputan.Text = "🚛 Jadwal Penjemputan";
@@ -98,9 +122,11 @@
             this.btnSampah.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnSampah.FlatAppearance.BorderSize = 0;
             this.btnSampah.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSampah.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.btnSampah.ForeColor = System.Drawing.Color.White;
             this.btnSampah.Location = new System.Drawing.Point(0, 100);
             this.btnSampah.Name = "btnSampah";
+            this.btnSampah.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.btnSampah.Size = new System.Drawing.Size(240, 50);
             this.btnSampah.TabIndex = 2;
             this.btnSampah.Text = "📦 Data Sampah";
@@ -206,7 +232,7 @@
         private System.Windows.Forms.Button btnSampah;
         private System.Windows.Forms.Button btnLogout;
         private System.Windows.Forms.Label lblWelcome;
-        // 3. INI PENTING: Deklarasi Variabel Tombol
         private System.Windows.Forms.Button btnCetak;
+        private System.Windows.Forms.Button btnChatbot; // DEKLARASI BARU
     }
 }

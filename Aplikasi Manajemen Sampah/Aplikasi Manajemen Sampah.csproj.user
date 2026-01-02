@@ -4,6 +4,9 @@
     <Compile Update="BorderedPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Forms\FormChatbot.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\DashboardAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
