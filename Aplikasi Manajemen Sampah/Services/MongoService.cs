@@ -1,7 +1,6 @@
 ﻿using MongoDB.Driver;
 using Aplikasi_Manajemen_Sampah.Models;
 
-// PENTING: Wajib pakai 'Services' (ada huruf S di belakang)
 namespace Aplikasi_Manajemen_Sampah.Services
 {
     public class MongoService
@@ -10,16 +9,24 @@ namespace Aplikasi_Manajemen_Sampah.Services
 
         public MongoService()
         {
-            var client = new MongoClient("mongodb://localhost:27017");
-            _db = client.GetDatabase("ManajemenSampahDB");
+            var client = new MongoClient(
+                "mongodb+srv://USERNAME:PASSWORD@clustersampah.vm4iwtj.mongodb.net/db_sampah"
+            );
+
+            _db = client.GetDatabase("db_sampah");
         }
 
-        // Membuka akses database untuk PdfService
+        // Database (dipakai service / form lain)
         public IMongoDatabase Database => _db;
 
-        // Shortcut Collection
-        public IMongoCollection<User> Users => _db.GetCollection<User>("Users");
-        public IMongoCollection<Sampah> Sampah => _db.GetCollection<Sampah>("Sampah");
-        public IMongoCollection<Penjemputan> Penjemputan => _db.GetCollection<Penjemputan>("Penjemputan");
+        // Collections (nama HARUS sama dengan Atlas)
+        public IMongoCollection<User> Users =>
+            _db.GetCollection<User>("users");
+
+        public IMongoCollection<Sampah> Sampah =>
+            _db.GetCollection<Sampah>("sampah");
+
+        public IMongoCollection<Penjemputan> Penjemputan =>
+            _db.GetCollection<Penjemputan>("penjemputan");
     }
 }

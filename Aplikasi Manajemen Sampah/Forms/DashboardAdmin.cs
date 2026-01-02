@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Linq;
+using System.Windows.Forms;
 using Aplikasi_Manajemen_Sampah.Models;
+using Aplikasi_Manajemen_Sampah.Services;
 
 namespace Aplikasi_Manajemen_Sampah.Forms
 {
@@ -15,6 +16,9 @@ namespace Aplikasi_Manajemen_Sampah.Forms
         {
             this.currentUser = user;
             InitializeComponent();
+
+            // Event Load (TEST KONEKSI DATABASE ONLINE)
+            this.Load += DashboardAdmin_Load;
 
             InitializeCustomDesign();
 
@@ -31,7 +35,6 @@ namespace Aplikasi_Manajemen_Sampah.Forms
             if (btnCetak != null)
                 btnCetak.Click += btnCetakAdmin_Click;
 
-            // TAMBAHAN BARU: Setup button Chatbot
             if (btnChatbot != null)
                 btnChatbot.Click += (s, e) => OpenChildForm(new FormChatbot(currentUser));
 
@@ -39,43 +42,59 @@ namespace Aplikasi_Manajemen_Sampah.Forms
                 btnLogout.Click += BtnLogout_Click;
         }
 
+        // =========================
+        // TEST KONEKSI MONGODB ATLAS
+        // =========================
+        private void DashboardAdmin_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                MongoService mongo = new MongoService();
+                var jumlahSampah = mongo.Sampah.CountDocuments(_ => true);
+
+                Console.WriteLine(
+                    "Koneksi MongoDB Atlas BERHASIL. Jumlah data sampah: " + jumlahSampah
+                );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Gagal koneksi database online\n" + ex.Message,
+                    "ERROR",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        // =========================
+        // UI & SIDEBAR
+        // =========================
         private void InitializeCustomDesign()
         {
-            // Set Username di Header
+            // Set Username
             if (Controls.Find("lblWelcome", true).Length > 0)
-                ((Label)Controls.Find("lblWelcome", true)[0]).Text = $"Welcome, {currentUser.Username}";
+                ((Label)Controls.Find("lblWelcome", true)[0]).Text =
+                    $"Welcome, {currentUser.Username}";
 
-            // Styling Tombol Sidebar
+            // Sidebar Buttons
             if (btnSampah != null) { UIHelper.SetSidebarButton(btnSampah); SetupButtonHover(btnSampah); }
             if (btnPenjemputan != null) { UIHelper.SetSidebarButton(btnPenjemputan); SetupButtonHover(btnPenjemputan); }
             if (btnUsers != null) { UIHelper.SetSidebarButton(btnUsers); SetupButtonHover(btnUsers); }
-            if (btnCetak != null)
-            {
-                UIHelper.SetSidebarButton(btnCetak);
-                SetupButtonHover(btnCetak);
-                btnCetak.Visible = true;
-                btnCetak.BringToFront();
-            }
-
-            // TAMBAHAN BARU: Styling button Chatbot
-            if (btnChatbot != null)
-            {
-                UIHelper.SetSidebarButton(btnChatbot);
-                SetupButtonHover(btnChatbot);
-                btnChatbot.Visible = true;
-                btnChatbot.BringToFront();
-            }
+            if (btnCetak != null) { UIHelper.SetSidebarButton(btnCetak); SetupButtonHover(btnCetak); }
+            if (btnChatbot != null) { UIHelper.SetSidebarButton(btnChatbot); SetupButtonHover(btnChatbot); }
 
             if (btnLogout != null)
             {
                 UIHelper.SetSidebarButton(btnLogout);
-                btnLogout.BackColor = Color.FromArgb(192, 57, 43); // Merah khusus Logout
+                btnLogout.BackColor = Color.FromArgb(192, 57, 43);
             }
 
-            // Sembunyikan menu User jika bukan Admin
+            // Hak Akses
             if (currentUser.Role != "Admin")
             {
-                if (btnUsers != null) btnUsers.Visible = false;
+                if (btnUsers != null)
+                    btnUsers.Visible = false;
             }
         }
 
@@ -85,6 +104,9 @@ namespace Aplikasi_Manajemen_Sampah.Forms
             btn.MouseLeave += (s, e) => btn.BackColor = UIHelper.PrimaryColor;
         }
 
+        // =========================
+        // CHILD FORM HANDLER
+        // =========================
         private void OpenChildForm(Form childForm)
         {
             if (activeForm != null)
@@ -92,29 +114,37 @@ namespace Aplikasi_Manajemen_Sampah.Forms
 
             activeForm = childForm;
 
-            // Konfigurasi agar Form bisa masuk ke dalam Panel
             childForm.TopLevel = false;
             childForm.FormBorderStyle = FormBorderStyle.None;
             childForm.Dock = DockStyle.Fill;
 
+            panelContent.Controls.Clear();
             panelContent.Controls.Add(childForm);
-            panelContent.Tag = childForm;
 
             childForm.BringToFront();
             childForm.Show();
         }
 
+        // =========================
+        // LOGOUT
+        // =========================
         private void BtnLogout_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Apakah Anda yakin ingin logout?", "Logout",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show(
+                "Apakah Anda yakin ingin logout?",
+                "Logout",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 new LoginForm().Show();
                 this.Hide();
             }
         }
 
-        private async void btnCetakAdmin_Click(object sender, EventArgs e)
+        // =========================
+        // CETAK LAPORAN
+        // =========================
+        private void btnCetakAdmin_Click(object sender, EventArgs e)
         {
             OpenChildForm(new FormLaporan());
         }
