@@ -15,8 +15,6 @@
         private void InitializeComponent()
         {
             panelLogin = new GlassPanel();
-            lnkRegister = new LinkLabel();
-            lblRegisterInfo = new Label();
             pnlPasswordContainer = new BorderedPanel();
             txtPassword = new TextBox();
             pbPassIcon = new PictureBox();
@@ -36,8 +34,6 @@
             // panelLogin
             // 
             panelLogin.BackColor = Color.Transparent;
-            panelLogin.Controls.Add(lnkRegister);
-            panelLogin.Controls.Add(lblRegisterInfo);
             panelLogin.Controls.Add(pnlPasswordContainer);
             panelLogin.Controls.Add(lblTitle);
             panelLogin.Controls.Add(pnlUsernameContainer);
@@ -48,34 +44,13 @@
             panelLogin.Size = new Size(360, 480);
             panelLogin.TabIndex = 12;
             // 
-            // lnkRegister
-            // 
-            lnkRegister.AutoSize = true;
-            lnkRegister.LinkColor = Color.LightSkyBlue;
-            lnkRegister.Location = new Point(210, 307);
-            lnkRegister.Name = "lnkRegister";
-            lnkRegister.Size = new Size(63, 20);
-            lnkRegister.TabIndex = 12;
-            lnkRegister.TabStop = true;
-            lnkRegister.Text = "Register";
-            // 
-            // lblRegisterInfo
-            // 
-            lblRegisterInfo.AutoSize = true;
-            lblRegisterInfo.ForeColor = Color.White;
-            lblRegisterInfo.Location = new Point(60, 307);
-            lblRegisterInfo.Name = "lblRegisterInfo";
-            lblRegisterInfo.Size = new Size(143, 20);
-            lblRegisterInfo.TabIndex = 9;
-            lblRegisterInfo.Text = "Don't have account?";
-            // 
             // pnlPasswordContainer
             // 
             pnlPasswordContainer.BackColor = Color.Transparent;
             pnlPasswordContainer.Controls.Add(txtPassword);
             pnlPasswordContainer.Controls.Add(pbPassIcon);
             pnlPasswordContainer.FillColor = Color.FromArgb(30, 30, 30);
-            pnlPasswordContainer.Location = new Point(40, 160);
+            pnlPasswordContainer.Location = new Point(40, 209);
             pnlPasswordContainer.Name = "pnlPasswordContainer";
             pnlPasswordContainer.Padding = new Padding(15, 10, 15, 10);
             pnlPasswordContainer.Size = new Size(280, 50);
@@ -106,7 +81,7 @@
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold);
             lblTitle.ForeColor = Color.White;
-            lblTitle.Location = new Point(121, 0);
+            lblTitle.Location = new Point(121, 5);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(124, 46);
             lblTitle.TabIndex = 2;
@@ -118,7 +93,7 @@
             pnlUsernameContainer.Controls.Add(txtUsername);
             pnlUsernameContainer.Controls.Add(pbUserIcon);
             pnlUsernameContainer.FillColor = Color.FromArgb(30, 30, 30);
-            pnlUsernameContainer.Location = new Point(40, 90);
+            pnlUsernameContainer.Location = new Point(40, 139);
             pnlUsernameContainer.Name = "pnlUsernameContainer";
             pnlUsernameContainer.Padding = new Padding(15, 10, 15, 10);
             pnlUsernameContainer.Size = new Size(280, 50);
@@ -150,7 +125,7 @@
             btnLogin.FlatStyle = FlatStyle.Flat;
             btnLogin.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnLogin.ForeColor = Color.Black;
-            btnLogin.Location = new Point(40, 240);
+            btnLogin.Location = new Point(40, 327);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(280, 45);
             btnLogin.TabIndex = 0;
@@ -183,7 +158,6 @@
 
         private GlassPanel panelLogin;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.Label lblRegisterInfo;
         private System.Windows.Forms.TextBox txtPassword;
         private BorderedPanel pnlPasswordContainer;
         private System.Windows.Forms.TextBox txtUsername;
@@ -192,6 +166,5 @@
         private BorderedPanel pnlUsernameContainer;
         private RoundedButton btnLogin;
         private System.Windows.Forms.PictureBox pbPassIcon;
-        private System.Windows.Forms.LinkLabel lnkRegister;
     }
 }
